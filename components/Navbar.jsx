@@ -33,10 +33,10 @@ export default function Navbar() {
   }, [isOpen]);
 
   const navLinks = [
-    { name: t('navigation.home'), href: "#home" },
-    { name: t('navigation.services'), href: "#services" },
-    { name: t('navigation.about'), href: "#about" },
-    { name: t('navigation.solutions'), href: "#solutions" },
+    { name: t('navigation.home'), href: "/" },
+        { name: t('navigation.blogs'), href: "/blog" },
+    { name: t('navigation.services'), href: "/services" },
+    { name: t('navigation.about'), href: "/about" },
     { name: t('navigation.contact'), href: "#contact" },
   ];
 
