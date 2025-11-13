@@ -48,8 +48,8 @@ export default function LanguageSwitcher({ isMobile = false }) {
         onClick={() => setIsOpen(!isOpen)}
         className={buttonClass}
       >
-        <Globe className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
-        <span className="text-sm font-medium">{currentLang.flag} {currentLang.name}</span>
+        <Globe className="w-4 h-4 text-black group-hover:rotate-12 transition-transform duration-300" />
+        <span className="text-sm text-gray-800 font-medium">{currentLang.flag} {currentLang.name}</span>
         {!isMobile && (
           <svg
             className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
@@ -74,7 +74,7 @@ export default function LanguageSwitcher({ isMobile = false }) {
                 key={lang.code}
                 onClick={() => changeLanguage(lang.code)}
                 className={`flex items-center gap-3 w-full px-4 py-3 hover:bg-[#00b7ff]/10 transition-colors duration-200 ${
-                  i18n.language === lang.code ? 'bg-[#00b7ff]/20 text-[#00b7ff]' : 'text-gray-700'
+                  i18n.language === lang.code ? 'bg-[#00b7ff]/20 text-gray-700' : 'text-gray-700'
                 } ${isRTL ? 'text-right flex-row-reverse' : 'text-left'}`}
               >
                 <span className="text-lg">{lang.flag}</span>

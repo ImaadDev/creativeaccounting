@@ -132,12 +132,7 @@ export default function Services() {
                       ))}
                     </ul>
 
-                    <a
-                      href="#contact"
-                      className="mt-8 rounded border-2 border-white px-8 py-3 text-base font-semibold transition-all hover:bg-white hover:text-[#00b7ff]"
-                    >
-                      {isRTL ? 'ابدأ الآن' : 'Get Started'}
-                    </a>
+                
                   </div>
                 </div>
               </div>
