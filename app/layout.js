@@ -90,13 +90,13 @@ export default function RootLayout({ children }) {
     "name": "Creative Accounting",
     "description": "Leading accounting firm in Riyadh, Saudi Arabia providing expert bookkeeping, VAT compliance, auditing, payroll and financial advisory services.",
     "url": "https://creativeeaccounting.com",
-    "logo": "https://creativeeaccounting.com/CaLogo.png",
-    "image": "https://creativeeaccounting.com/CaLogo.png",
+    "logo": "https://creativeeaccounting.com/logo.png",
+    "image": "https://creativeeaccounting.com/logo.png",
     "telephone": "+966-11-123-4567",
-    "email": "hello@creativeeaccounting.com",
+    "email": "info@creativeeaccounting.com",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "King Fahd Road",
+      "streetAddress": "Rifah Ibn Rafi Street - Olaya District",
       "addressLocality": "Riyadh",
       "addressRegion": "Riyadh Province",
       "postalCode": "12345",
@@ -104,8 +104,8 @@ export default function RootLayout({ children }) {
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 24.7136,
-      "longitude": 46.6753
+      "latitude": 24.68066,
+      "longitude": 46.69795
     },
     "areaServed": [
       {
@@ -215,7 +215,6 @@ export default function RootLayout({ children }) {
         />
         <link rel="canonical" href="https://creativeeaccounting.com" />
         <link rel="alternate" hrefLang="en" href="https://creativeeaccounting.com" />
-        <link rel="alternate" hrefLang="ar" href="https://creativeeaccounting.com/ar" />
       </head>
       <body
         className={`${cairo.variable} antialiased relative font-sans`}

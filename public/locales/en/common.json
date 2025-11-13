@@ -249,6 +249,69 @@
       "description": "Ready to transform your business? Whether you need expert accounting services, business consultation, or want to discuss your next project, we're here to help.",
       "cta": "Start Conversation"
     },
+    "stats": {
+      "support": "Support Available",
+      "response": "Response Time",
+      "satisfaction": "Client Satisfaction",
+      "rating": "Average Rating"
+    },
+    "sections": {
+      "communication": {
+        "title": "Multiple Ways to Connect",
+        "subtitle": "Choose Your Preferred Method",
+        "description": "We offer various communication channels to ensure you can reach us whenever and however you prefer. From email to phone calls, we're always just a message away."
+      },
+      "expertise": {
+        "title": "Expert Consultation",
+        "subtitle": "Professional Financial Guidance",
+        "description": "Our team of certified accountants and financial experts is ready to provide you with personalized consultation. Whether you need advice on tax planning, business setup, or financial strategy, we're here to help."
+      },
+      "support": {
+        "title": "Ongoing Support",
+        "subtitle": "Your Success is Our Priority",
+        "description": "Beyond initial consultation, we provide continuous support to ensure your business thrives. Our relationship doesn't end with the first conversation – we're your long-term financial partners."
+      }
+    },
+    "features": {
+      "title": "Why Contact Us?",
+      "subtitle": "Experience the difference with our commitment to excellence and personalized service",
+      "responsive": {
+        "title": "Quick Response",
+        "description": "We respond to all inquiries within 24 hours",
+        "backContent": "Fast and reliable communication ensures your questions are answered promptly"
+      },
+      "expertise": {
+        "title": "Expert Knowledge",
+        "description": "Deep understanding of Saudi market and regulations",
+        "backContent": "Our team stays updated with the latest regulations and best practices"
+      },
+      "personalized": {
+        "title": "Personalized Service",
+        "description": "Tailored solutions for your unique business needs",
+        "backContent": "Every client receives customized attention and solutions"
+      },
+      "reliable": {
+        "title": "Reliable Support",
+        "description": "Consistent and dependable service you can count on",
+        "backContent": "We deliver on our promises and maintain high service standards"
+      },
+      "comprehensive": {
+        "title": "Comprehensive Solutions",
+        "description": "End-to-end financial services under one roof",
+        "backContent": "From accounting to strategic planning, we handle it all"
+      },
+      "value": {
+        "title": "Exceptional Value",
+        "description": "High-quality service at competitive rates",
+        "backContent": "Quality financial services that provide real value to your business"
+      }
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "description": "Join hundreds of satisfied clients who trust us with their financial success. Let's discuss how we can help your business thrive.",
+      "contact": "Contact Us Today",
+      "services": "Explore Services"
+    },
     "section": {
       "badge": "Get In Touch",
       "title": "Let's Start Your",
@@ -262,17 +325,17 @@
       "contactInfo": [
         {
           "label": "Email Us",
-          "value": "hello@creativeaccounting.sa",
+          "value": "info@creativeeaccounting.com",
           "description": "Send us an email anytime"
         },
         {
           "label": "Call Us",
           "value": "+966 11 123 4567",
-          "description": "Mon-Fri from 8am to 5pm"
+          "description": "Sat-Fri from 8am to 8pm"
         },
         {
           "label": "Visit Us",
-          "value": "King Fahd Road, Riyadh",
+          "value": "Rifah Ibn Rafi Street, Al Olaya District, Riyadh",
           "description": "Saudi Arabia"
         },
         {
@@ -298,9 +361,9 @@
       "phone": "Phone",
       "hours": "Business Hours",
       "emailDesc": "Send us an email anytime",
-      "phoneDesc": "Mon-Fri from 8am to 5pm",
-      "hoursValue": "Sun - Thu",
-      "hoursDesc": "8AM - 5PM"
+      "phoneDesc": "Mon-Fri from 8am to 8pm",
+      "hoursValue": "Sat - Thu",
+      "hoursDesc": "8AM - 8PM"
     },
     "form": {
       "fields": {
