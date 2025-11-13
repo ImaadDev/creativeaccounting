@@ -99,6 +99,54 @@
       "title": "Who We Are",
       "description": "Learn about our story, mission, and the values that drive us to deliver exceptional financial services."
     },
+    "stats": {
+      "experience": "Years of Experience",
+      "clients": "Happy Clients",
+      "professionals": "Expert Professionals",
+      "support": "Client Support"
+    },
+    "whyChoose": {
+      "title": "Why Choose Us?",
+      "subtitle": "We understand the unique challenges businesses face in Saudi Arabia",
+      "items": {
+        "local": {
+          "title": "Local Expertise",
+          "description": "Deep understanding of Saudi market and regulations",
+          "backContent": "Deep understanding of Saudi market and regulations"
+        },
+        "innovative": {
+          "title": "Innovative Solutions",
+          "description": "Latest technologies for automating and digitizing financial processes",
+          "backContent": "Latest technologies for automating and digitizing financial processes"
+        },
+        "support": {
+          "title": "Ongoing Support",
+          "description": "Continuous support and strategic guidance for your business growth",
+          "backContent": "Continuous support and strategic guidance for your business growth"
+        },
+        "compliance": {
+          "title": "Full Compliance",
+          "description": "Ensuring compliance with all regulations and ZATCA requirements",
+          "backContent": "Ensuring compliance with all regulations and ZATCA requirements"
+        },
+        "personalized": {
+          "title": "Personalized Service",
+          "description": "Tailored solutions that fit your unique business needs",
+          "backContent": "Tailored solutions that fit your unique business needs"
+        },
+        "value": {
+          "title": "Excellent Value",
+          "description": "High-quality services at competitive prices",
+          "backContent": "High-quality services at competitive prices"
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Your Journey with Us?",
+      "description": "Join hundreds of satisfied clients who trust us with their financial success",
+      "contact": "Contact Us",
+      "services": "Explore Services"
+    },
     "sections": [
       {
         "title": "About Creative Accounting",
@@ -195,6 +243,12 @@
     }
   },
   "contact": {
+    "hero": {
+      "title": "Get In Touch",
+      "subtitle": "Let's Start Your Success Story",
+      "description": "Ready to transform your business? Whether you need expert accounting services, business consultation, or want to discuss your next project, we're here to help.",
+      "cta": "Start Conversation"
+    },
     "section": {
       "badge": "Get In Touch",
       "title": "Let's Start Your",
@@ -235,6 +289,18 @@
     "rightPanel": {
       "title": "Send Us a Message",
       "description": "Fill out the form below and we'll get back to you within 24 hours. The more details you provide, the better we can assist you."
+    },
+    "map": {
+      "title": "Our Location",
+      "description": "Visit us at our main office in Riyadh, Saudi Arabia",
+      "office": "Main Office",
+      "email": "Email",
+      "phone": "Phone",
+      "hours": "Business Hours",
+      "emailDesc": "Send us an email anytime",
+      "phoneDesc": "Mon-Fri from 8am to 5pm",
+      "hoursValue": "Sun - Thu",
+      "hoursDesc": "8AM - 5PM"
     },
     "form": {
       "fields": {

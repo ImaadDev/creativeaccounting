@@ -2,6 +2,8 @@ import { Cairo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import LenisScroll from "@/components/LenisScroll";
+import SmoothScroll from "@/components/SmoothScroll";
 
 
 const cairo = Cairo({
@@ -27,7 +29,7 @@ export default function RootLayout({ children }) {
         <div className="min-h-screen flex flex-col">
           <div className="relative z-10 flex-grow">
             <Navbar/>
-            <main>{children}</main>
+        <SmoothScroll>{children}</SmoothScroll >
           </div>
           <Footer />
         </div>

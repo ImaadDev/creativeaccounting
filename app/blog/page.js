@@ -101,18 +101,17 @@ export default function BlogPage() {
         className="relative h-screen w-full overflow-hidden bg-black"
         dir={isRTL ? "rtl" : "ltr"}
       >
-        {/* Background Video/Image */}
+        {/* Background Image */}
         <motion.div style={{ y: videoY }} className="absolute inset-0 h-[120%] w-full">
-          <Image
-            src={featuredArticle.image}
-            alt="Blog Hero Background"
-            fill
-            className="object-cover opacity-50"
+          <img
+            src="https://images.unsplash.com/photo-1657639028182-24e11504c7c1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Professional workspace and technology"
+            className="h-full w-full object-cover opacity-70"
           />
         </motion.div>
 
-        {/* Minimal Gradient Overlay */}
-        <div className="absolute inset-0 bg-black/30" />
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#00B7FF]/80 to-[#0099CC]/60" />
 
         {/* Content */}
         <motion.div
@@ -129,36 +128,20 @@ export default function BlogPage() {
                   <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
                     {t('solutionFeatures.section.title')}
                   </span>
-                  <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#00b7ff] mt-2">
+                  <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-blue-100 mt-2">
                     {isRTL ? 'ونصائح حصرية' : 'Insights & Tips'}
                   </span>
                 </h1>
               </ScrollBasedAnimation>
 
-              {/* Vision Paragraph */}
+              {/* Description */}
               <ScrollBasedAnimation delay={0.2} duration={0.6} direction="up" offset={20}>
-                <p className="text-white/80 text-base sm:text-lg md:text-xl">
+                <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-2xl">
                   {t('solutionFeatures.section.description')}
                 </p>
               </ScrollBasedAnimation>
 
-              {/* CTA Buttons */}
-              <ScrollBasedAnimation delay={0.3} duration={0.6} direction="up" offset={20}>
-                <div className={`flex flex-wrap gap-4 pt-4 ${isRTL ? 'justify-end' : 'justify-start'}`}>
-                  <a
-                    href="#articles"
-                    className="bg-[#00b7ff] px-8 py-4 text-white font-semibold text-base transition-colors duration-300 hover:bg-[#0099dd]"
-                  >
-                    {isRTL ? 'استكشف المقالات' : 'Explore Articles'}
-                  </a>
-                  <Link
-                    href="/contact"
-                    className="border-2 border-white/30 px-8 py-4 text-white font-semibold text-base transition-colors duration-300 hover:border-white/60 hover:bg-white/5"
-                  >
-                    {isRTL ? 'تواصل معنا' : 'Contact Us'}
-                  </Link>
-                </div>
-              </ScrollBasedAnimation>
+            
             </div>
           </div>
         </motion.div>
@@ -183,7 +166,7 @@ export default function BlogPage() {
               </h2>
               <div className="group relative max-w-4xl mx-auto cursor-pointer transform transition-all duration-500 hover:scale-105">
                 <Link href={`/blog/${featuredArticle.slug}`}>
-                  <div className="relative h-80 lg:h-96 overflow-hidden border-2 border-gray-200 group-hover:border-[#00b7ff] transition-colors duration-300">
+                  <div className="relative h-80 lg:h-96 overflow-hidden transition-colors duration-300">
                     <Image
                       src={featuredArticle.image}
                       alt={featuredArticle.title}

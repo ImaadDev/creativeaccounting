@@ -5,7 +5,7 @@ import { useRef } from "react";
 import ScrollBasedAnimation from "./ScrollBasedAnimation";
 import { useTranslation } from "react-i18next";
 
-export default function HeroSection() {
+export default function AboutHeroSection() {
   const heroRef = useRef(null);
   const { t, i18n } = useTranslation();
   const { scrollYProgress } = useScroll({
@@ -53,10 +53,7 @@ export default function HeroSection() {
             <ScrollBasedAnimation delay={0.1} duration={0.6} direction="up" offset={30}>
               <h1 className="font-bold leading-tight text-white">
                 <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
-                  {t('hero.title.part1')}
-                </span>
-                <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#00b7ff] mt-2">
-                  {t('hero.title.part2')}
+                  {t('about.section.title')}
                 </span>
               </h1>
             </ScrollBasedAnimation>
@@ -64,11 +61,9 @@ export default function HeroSection() {
             {/* Vision Paragraph */}
             <ScrollBasedAnimation delay={0.2} duration={0.6} direction="up" offset={20}>
               <p className="text-white/80 text-base sm:text-lg md:text-xl">
-                {t('hero.description')}
+                {t('about.section.description')}
               </p>
             </ScrollBasedAnimation>
-
-            
           </div>
         </div>
       </motion.div>

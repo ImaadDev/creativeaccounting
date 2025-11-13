@@ -26,3 +26,8 @@ body {
 .font-cairo {
   font-family: var(--font-cairo), sans-serif;
 }
+
+/* 3D Flip Animation */
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}

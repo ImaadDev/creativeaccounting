@@ -160,7 +160,7 @@ export default function Services() {
                   href="#contact"
                   className="group inline-flex items-center justify-center gap-2 border-2 border-[#00b7ff] bg-[#00b7ff] px-10 py-4 text-base font-bold uppercase tracking-wider text-white transition-all duration-300 hover:bg-transparent hover:text-[#00b7ff]"
                 >
-                  {t('services.cta.button')}
+                  {t('navigation.contact')}
                   <svg
                     className={`h-5 w-5 transition-transform duration-300 ${isRTL ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`}
                     fill="none"

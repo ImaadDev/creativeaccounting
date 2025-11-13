@@ -1,9 +1,14 @@
 import React from 'react'
+import HeroSection from '../../components/Hero'
+import Services from '../../components/Services'
 
-function Services() {
+function ServicesPage() {
   return (
-    <div>Services</div>
+    <div>
+      <HeroSection />
+      <Services />
+    </div>
   )
 }
 
-export default Services
+export default ServicesPage

@@ -37,7 +37,7 @@ export default function Navbar() {
         { name: t('navigation.blogs'), href: "/blog" },
     { name: t('navigation.services'), href: "/services" },
     { name: t('navigation.about'), href: "/about" },
-    { name: t('navigation.contact'), href: "#contact" },
+    { name: t('navigation.contact'), href: "/contact" },
   ];
 
   return (
@@ -53,9 +53,9 @@ export default function Navbar() {
         }`}
         dir={isRTL ? "rtl" : "ltr"}
       >
-        <div className={`mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-12 lg:py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`mx-auto flex max-w-7xl items-center justify-between px-6 py-2 lg:px-12 lg:py-3 h-20 md:h-30 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <motion.a
-            href="#home"
+            href="/"
             className="relative z-50 flex items-center gap-3"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
@@ -63,8 +63,18 @@ export default function Navbar() {
             <Image
               src="/CaLogo.png"
               alt="Creative Accounting"
-              width={80}
-              height={80}
+              width={200}
+              height={200}
+              className="hidden md:flex"
+              priority
+            />
+
+            <Image
+              src="/CaLogo.png"
+              alt="Creative Accounting"
+              width={120}
+              height={100}
+              className="md:hidden"
               priority
             />
           </motion.a>

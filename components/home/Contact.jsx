@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Mail, Phone, MapPin, Send, Clock, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Clock, Globe, User, MessageSquare, Building } from 'lucide-react';
 import ScrollBasedAnimation from '../ScrollBasedAnimation';
 
 export default function ContactSection() {
@@ -90,39 +90,49 @@ export default function ContactSection() {
             </div>
           </ScrollBasedAnimation>
 
-          <div className="space-y-8">
+          <div className="space-y-6">
             {contactInfo.map((item, index) => (
               <ScrollBasedAnimation key={item.label} direction="right" offset={50} delay={index * 0.1}>
-                <div className={`group flex items-start gap-6 p-4 border-l-2 border-transparent hover:border-[#6EFF33] transition-all duration-300 ${isRTL ? 'border-l-0 border-r-2 flex-row-reverse' : ''}`}>
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 flex items-center justify-center group-hover:bg-white transition-colors duration-300">
-                      {[Mail, Phone, MapPin, Clock][index] && (
-                        [Mail, Phone, MapPin, Clock][index].name === 'Mail' ? <Mail className="w-6 h-6 text-black" /> :
-                        [Mail, Phone, MapPin, Clock][index].name === 'Phone' ? <Phone className="w-6 h-6 text-[#00B7FF]" /> :
-                        [Mail, Phone, MapPin, Clock][index].name === 'MapPin' ? <MapPin className="w-6 h-6 text-[#00B7FF]" /> :
-                        <Clock className="w-6 h-6 text-[#00B7FF]" />
-                      )}
+                <div className={`group relative overflow-hidden bg-white/10 backdrop-blur-sm  p-6 border border-white/20 hover:border-[#6EFF33]/50 transition-all duration-300 ${isRTL ? 'text-right' : 'text-left'}`}>
+                  <div className={`flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                    <div className="flex-shrink-0">
+                      <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300">
+                        {[Mail, Phone, MapPin, Clock][index] && (
+                          [Mail, Phone, MapPin, Clock][index].name === 'Mail' ? <Mail className="w-7 h-7 text-black group-hover:text-[#00B7FF]" /> :
+                          [Mail, Phone, MapPin, Clock][index].name === 'Phone' ? <Phone className="w-7 h-7 text-[#00B7FF] group-hover:text-black" /> :
+                          [Mail, Phone, MapPin, Clock][index].name === 'MapPin' ? <MapPin className="w-7 h-7 text-[#00B7FF] group-hover:text-black" /> :
+                          <Clock className="w-7 h-7 text-[#00B7FF] group-hover:text-black" />
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex-grow">
+                      <h3 className="font-bold text-xl mb-2 text-white group-hover:text-[#6EFF33] transition-colors duration-300">{item.label}</h3>
+                      <p className="text-white/90 font-semibold text-lg mb-1">{item.value}</p>
+                      <p className="text-blue-100 text-sm leading-relaxed">{item.description}</p>
                     </div>
                   </div>
-                  <div className={`flex-grow ${isRTL ? 'text-right' : 'text-left'}`}>
-                    <h3 className="font-semibold text-lg mb-1 text-[#6EFF33]">{item.label}</h3>
-                    <p className="text-white font-medium mb-1">{item.value}</p>
-                    <p className="text-blue-200 text-sm">{item.description}</p>
-                  </div>
+                  {/* Decorative gradient line */}
+                  <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#6EFF33] to-[#00B7FF] w-0 group-hover:w-full transition-all duration-500"></div>
                 </div>
               </ScrollBasedAnimation>
             ))}
           </div>
 
           <ScrollBasedAnimation direction="right" offset={50} delay={0.5}>
-            <div className="mt-12 p-6 bg-white bg-opacity-10 border border-white border-opacity-20">
-              <div className={`flex items-center gap-3 mb-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <Globe className="w-5 h-5 text-gray-700" />
-                <span className="font-semibold">{t('contact.leftPanel.globalReach.title')}</span>
+            <div className="mt-12 relative overflow-hidden bg-white/10 backdrop-blur-sm p-6 border border-white/20">
+              <div className={`flex items-center gap-4 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                  <Globe className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-white">{t('contact.leftPanel.globalReach.title')}</h3>
+                </div>
               </div>
-              <p className={`text-gray-600 text-sm ${isRTL ? 'text-right' : 'text-left'}`}>
+              <p className={`text-blue-100 text-sm leading-relaxed ${isRTL ? 'text-right' : 'text-left'}`}>
                 {t('contact.leftPanel.globalReach.description')}
               </p>
+              {/* Decorative gradient line */}
+              <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#00B7FF] to-[#6EFF33] w-full"></div>
             </div>
           </ScrollBasedAnimation>
         </div>
@@ -143,72 +153,84 @@ export default function ContactSection() {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
+                  <div className="relative">
                     <label className={`block text-sm font-semibold text-gray-700 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
                       {t('contact.form.fields.name.label')} *
                     </label>
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder={t('contact.form.fields.name.placeholder')}
-                      value={formData.name}
-                      onChange={handleChange}
-                      className={`w-full border-2 px-4 py-4 outline-none focus:border-[#00B7FF] transition-colors bg-white ${
-                        errors.name ? 'border-red-500' : 'border-gray-200'
-                      } ${isRTL ? 'text-right' : 'text-left'}`}
-                    />
+                    <div className={`relative ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      <User className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400`} />
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder={t('contact.form.fields.name.placeholder')}
+                        value={formData.name}
+                        onChange={handleChange}
+                        className={`w-full border-2 ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-4 outline-none focus:border-[#00B7FF] transition-colors bg-white ${
+                          errors.name ? 'border-red-500' : 'border-gray-200'
+                        } ${isRTL ? 'text-right' : 'text-left'}`}
+                      />
+                    </div>
                     {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                   </div>
-                  
-                  <div>
+
+                  <div className="relative">
                     <label className={`block text-sm font-semibold text-gray-700 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
                       {t('contact.form.fields.email.label')} *
                     </label>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder={t('contact.form.fields.email.placeholder')}
-                      value={formData.email}
-                      onChange={handleChange}
-                      className={`w-full border-2 px-4 py-4 outline-none focus:border-[#00B7FF] transition-colors bg-white ${
-                        errors.email ? 'border-red-500' : 'border-gray-200'
-                      } ${isRTL ? 'text-right' : 'text-left'}`}
-                    />
+                    <div className={`relative ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      <Mail className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400`} />
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder={t('contact.form.fields.email.placeholder')}
+                        value={formData.email}
+                        onChange={handleChange}
+                        className={`w-full border-2 ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-4 outline-none focus:border-[#00B7FF] transition-colors bg-white ${
+                          errors.email ? 'border-red-500' : 'border-gray-200'
+                        } ${isRTL ? 'text-right' : 'text-left'}`}
+                      />
+                    </div>
                     {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                   </div>
                 </div>
 
-                <div>
+                <div className="relative">
                   <label className={`block text-sm font-semibold text-gray-700 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
                     {t('contact.form.fields.subject.label')} *
                   </label>
-                  <input
-                    type="text"
-                    name="subject"
-                    placeholder={t('contact.form.fields.subject.placeholder')}
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className={`w-full border-2 px-4 py-4 outline-none focus:border-[#00B7FF] transition-colors bg-white ${
-                      errors.subject ? 'border-red-500' : 'border-gray-200'
-                    } ${isRTL ? 'text-right' : 'text-left'}`}
-                  />
+                  <div className={`relative ${isRTL ? 'flex-row-reverse' : ''}`}>
+                    <MessageSquare className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-4 w-5 h-5 text-gray-400`} />
+                    <input
+                      type="text"
+                      name="subject"
+                      placeholder={t('contact.form.fields.subject.placeholder')}
+                      value={formData.subject}
+                      onChange={handleChange}
+                      className={`w-full border-2 ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-4 outline-none focus:border-[#00B7FF] transition-colors bg-white ${
+                        errors.subject ? 'border-red-500' : 'border-gray-200'
+                      } ${isRTL ? 'text-right' : 'text-left'}`}
+                    />
+                  </div>
                   {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject}</p>}
                 </div>
 
-                <div>
+                <div className="relative">
                   <label className={`block text-sm font-semibold text-gray-700 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
                     {t('contact.form.fields.message.label')} *
                   </label>
-                  <textarea
-                    name="message"
-                    rows={6}
-                    placeholder={t('contact.form.fields.message.placeholder')}
-                    value={formData.message}
-                    onChange={handleChange}
-                    className={`w-full border-2 px-4 py-4 outline-none focus:border-[#00B7FF] transition-colors resize-none bg-white ${
-                      errors.message ? 'border-red-500' : 'border-gray-200'
-                    } ${isRTL ? 'text-right' : 'text-left'}`}
-                  />
+                  <div className={`relative ${isRTL ? 'flex-row-reverse' : ''}`}>
+                    <MessageSquare className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-4 w-5 h-5 text-gray-400`} />
+                    <textarea
+                      name="message"
+                      rows={6}
+                      placeholder={t('contact.form.fields.message.placeholder')}
+                      value={formData.message}
+                      onChange={handleChange}
+                      className={`w-full border-2 ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-4 outline-none focus:border-[#00B7FF] transition-colors resize-none bg-white ${
+                        errors.message ? 'border-red-500' : 'border-gray-200'
+                      } ${isRTL ? 'text-right' : 'text-left'}`}
+                    />
+                  </div>
                   {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                 </div>
 
