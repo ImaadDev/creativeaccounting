@@ -5,8 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const pathname = usePathname();
+
+// If path includes /studio → don't show navbar
+if (pathname.startsWith("/studio")) return null;
+
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, i18n } = useTranslation();
@@ -46,7 +52,7 @@ export default function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="absolute left-0 right-0 top-0 z-50"
+        className="absolute left-0 right-0 top-0 z-[9999] mb-20"
         dir={isRTL ? "rtl" : "ltr"}
       >
         {/* 3D Layered Background */}

@@ -38,7 +38,7 @@ export default function ContactMap() {
           <div className="relative h-96 w-full overflow-hidden">
             {/* Embedded Google Map */}
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3626.8!2d46.6753!3d24.7136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0x7efca3e5b4b1!2sKing%20Fahd%20Road%2C%20Riyadh%2C%20Saudi%20Arabia!5e0!3m2!1sen!2s!4v1690000000000!5m2!1sen!2s"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7250.688498274848!2d46.697973688001404!3d24.68069018454255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2ssa!4v1763216249408!5m2!1sen!2ssa"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -47,6 +47,8 @@ export default function ContactMap() {
               referrerPolicy="no-referrer-when-downgrade"
               title="Office Location"
             ></iframe>
+
+         
 
             {/* Simple Overlay with address */}
             <div className="absolute bottom-4 left-4 bg-white p-4 max-w-sm">
@@ -57,11 +59,11 @@ export default function ContactMap() {
                     {t('contact.map.office')}
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    King Fahd Road, Riyadh<br />
+                    Rifah Ibn Rafi Street Al Olaya, Riyadh<br />
                     Saudi Arabia
                   </p>
                   <a
-                    href="https://maps.google.com/?q=King+Fahd+Road,+Riyadh,+Saudi+Arabia"
+                    href="https://maps.app.goo.gl/1Sgh2R5tyU6Nv3TE7"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 mt-2 text-[#00B7FF] font-medium text-sm hover:text-[#0099CC] transition-colors"
@@ -82,13 +84,13 @@ export default function ContactMap() {
               front: {
                 icon: <Mail className="w-8 h-8 text-[#00B7FF]" />,
                 title: t('contact.map.email'),
-                value: 'hello@creativeaccounting.sa',
+                value: 'info@creativeeaccounting.com',
                 description: t('contact.map.emailDesc')
               },
               back: {
                 title: isRTL ? 'راسلنا الآن' : 'Send us an email',
                 description: isRTL ? 'نحن نرد عادة خلال 24 ساعة' : 'We typically respond within 24 hours',
-                action: 'mailto:hello@creativeaccounting.sa',
+                action: 'mailto:info@creativeeaccounting.com',
                 actionText: isRTL ? 'إرسال بريد إلكتروني' : 'Send Email'
               }
             },
@@ -96,13 +98,13 @@ export default function ContactMap() {
               front: {
                 icon: <Phone className="w-8 h-8 text-[#00B7FF]" />,
                 title: t('contact.map.phone'),
-                value: '+966 11 123 4567',
+                value: '+966506397402',
                 description: t('contact.map.phoneDesc')
               },
               back: {
                 title: isRTL ? 'اتصل بنا' : 'Call us now',
                 description: isRTL ? 'متاح خلال ساعات العمل' : 'Available during business hours',
-                action: 'tel:+966111234567',
+                action: 'tel:+96606397402',
                 actionText: isRTL ? 'اتصال' : 'Call Now'
               }
             },
@@ -115,7 +117,7 @@ export default function ContactMap() {
               },
               back: {
                 title: isRTL ? 'ساعات العمل' : 'Business Hours',
-                description: isRTL ? 'الأحد - الخميس: 8 صباحاً - 5 مساءً' : 'Sunday - Thursday: 8 AM - 5 PM',
+                description: isRTL ? 'الأحد - الخميس: 8 صباحاً - 5 مساءً' : 'Sunday - Thursday: 8 AM - 8 PM',
                 action: '#contact-form',
                 actionText: isRTL ? 'احجز موعداً' : 'Schedule Meeting'
               }

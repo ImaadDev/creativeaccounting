@@ -1,106 +1,65 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams, useRouter } from "next/navigation";
 import ScrollBasedAnimation from "../../../components/ScrollBasedAnimation";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Clock, User, Tag, Share2, BookOpen, Calendar } from "lucide-react";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
 export default function BlogDetailPage() {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
   const params = useParams();
   const router = useRouter();
-  
+
+  const [article, setArticle] = useState(null);
+  const [relatedArticles, setRelatedArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   // Get article slug from URL
   const slug = params.slug;
 
-  // Blog articles with translation support
-  const fullArticles = {
-    automation: {
-      slug: "automation",
-      title: t('blogArticles.automation.title'),
-      excerpt: t('blogArticles.automation.excerpt'),
-      image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
-      author: "Ahmed Al-Rashid",
-      authorBio: t('blogArticles.automation.authorBio'),
-      date: "Nov 10, 2025",
-      category: t('blogArticles.automation.category'),
-      readTime: t('blogArticles.automation.readTime'),
-      tags: t('blogArticles.automation.tags', { returnObjects: true }),
-      content: t('blogArticles.automation.content')
-    },
-    zatca: {
-      slug: "zatca",
-      title: t('blogArticles.zatca.title'),
-      excerpt: t('blogArticles.zatca.excerpt'),
-      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
-      author: "Sarah Mohamed",
-      authorBio: t('blogArticles.zatca.authorBio'),
-      date: "Oct 22, 2025",
-      category: t('blogArticles.zatca.category'),
-      readTime: t('blogArticles.zatca.readTime'),
-      tags: t('blogArticles.zatca.tags', { returnObjects: true }),
-      content: t('blogArticles.zatca.content')
-    },
-    security: {
-      slug: "security",
-      title: t('blogArticles.security.title'),
-      excerpt: t('blogArticles.security.excerpt'),
-      image: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=800&q=80",
-      author: "Khalid Hassan",
-      authorBio: t('blogArticles.security.authorBio'),
-      date: "Sep 15, 2025",
-      category: t('blogArticles.security.category'),
-      readTime: t('blogArticles.security.readTime'),
-      tags: t('blogArticles.security.tags', { returnObjects: true }),
-      content: t('blogArticles.security.content')
-    },
-    analytics: {
-      slug: "analytics",
-      title: t('blogArticles.analytics.title'),
-      excerpt: t('blogArticles.analytics.excerpt'),
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&q=80",
-      author: "Fatima Al-Zahrani",
-      authorBio: t('blogArticles.analytics.authorBio'),
-      date: "Aug 30, 2025",
-      category: t('blogArticles.analytics.category'),
-      readTime: t('blogArticles.analytics.readTime'),
-      tags: t('blogArticles.analytics.tags', { returnObjects: true }),
-      content: t('blogArticles.analytics.content')
-    },
-    scaling: {
-      slug: "scaling",
-      title: t('blogArticles.scaling.title'),
-      excerpt: t('blogArticles.scaling.excerpt'),
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
-      author: "Omar Abdullah",
-      authorBio: t('blogArticles.scaling.authorBio'),
-      date: "Jul 12, 2025",
-      category: t('blogArticles.scaling.category'),
-      readTime: t('blogArticles.scaling.readTime'),
-      tags: t('blogArticles.scaling.tags', { returnObjects: true }),
-      content: t('blogArticles.scaling.content')
-    },
-    tips: {
-      slug: "tips",
-      title: t('blogArticles.tips.title'),
-      excerpt: t('blogArticles.tips.excerpt'),
-      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80",
-      author: "Layla Ibrahim",
-      authorBio: t('blogArticles.tips.authorBio'),
-      date: "Jun 5, 2025",
-      category: t('blogArticles.tips.category'),
-      readTime: t('blogArticles.tips.readTime'),
-      tags: t('blogArticles.tips.tags', { returnObjects: true }),
-      content: t('blogArticles.tips.content')
-    }
-  };
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const data = await client.fetch(
+          `*[_type == "blogs" && slug.current == $slug][0]`,
+          { slug }
+        );
+        setArticle(data);
 
-  // Find the current article
-  const article = fullArticles[slug];
+        // Fetch related articles (excluding current one)
+        const related = await client.fetch(
+          `*[_type == "blogs" && slug.current != $slug] | order(publishedAt desc)[0...3]`,
+          { slug }
+        );
+        setRelatedArticles(related);
+      } catch (error) {
+        console.error('Error fetching article:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (slug) {
+      fetchArticle();
+    }
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#00b7ff]"></div>
+          <p className="mt-4 text-gray-600">Loading article...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!article) {
     return (
@@ -144,11 +103,7 @@ export default function BlogDetailPage() {
               </div>
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-gray-500" />
-                <span className="text-gray-600">{article.date}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-gray-500" />
-                <span className="text-gray-600">{article.readTime}</span>
+                <span className="text-gray-600">{new Date(article.publishedAt).toLocaleDateString()}</span>
               </div>
             </div>
           </ScrollBasedAnimation>
@@ -156,26 +111,26 @@ export default function BlogDetailPage() {
           {/* Article Title */}
           <ScrollBasedAnimation direction="up" delay={0.1} duration={0.6}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
-              {article.title}
+              {isRTL ? article.titleAr : article.title}
             </h1>
           </ScrollBasedAnimation>
 
           {/* Article Excerpt */}
           <ScrollBasedAnimation direction="up" delay={0.2} duration={0.6}>
             <p className="text-xl text-gray-600 leading-relaxed mb-8">
-              {article.excerpt}
+              {isRTL ? article.introductionAr : article.introduction}
             </p>
           </ScrollBasedAnimation>
 
-          {/* Author Info */}
+          {/* Author Info - Placeholder since not in schema */}
           <ScrollBasedAnimation direction="up" delay={0.3} duration={0.6}>
             <div className={`flex items-center gap-4 pb-8 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <div className="w-12 h-12 bg-[#00b7ff] rounded-full flex items-center justify-center">
                 <User className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">{article.author}</h3>
-                <p className="text-sm text-gray-600">{article.authorBio}</p>
+                <h3 className="font-semibold text-gray-900">{isRTL ? 'المحرر' : 'Author'}</h3>
+                <p className="text-sm text-gray-600">{isRTL ? 'محرر محتوى متخصص' : 'Content Specialist'}</p>
               </div>
             </div>
           </ScrollBasedAnimation>
@@ -186,8 +141,8 @@ export default function BlogDetailPage() {
       <ScrollBasedAnimation direction="up" delay={0.4} duration={0.6}>
         <div className="relative h-64 md:h-96 overflow-hidden">
           <Image
-            src={article.image}
-            alt={article.title}
+            src={article.images?.[0] ? urlFor(article.images[0]).width(800).height(400).url() : "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80"}
+            alt={isRTL ? article.titleAr : article.title}
             fill
             className="object-cover"
           />
@@ -198,27 +153,22 @@ export default function BlogDetailPage() {
       <section className="py-16 px-6 md:px-12 lg:px-24">
         <div className="max-w-4xl mx-auto">
           <ScrollBasedAnimation direction="up" delay={0.5} duration={0.6}>
-            <div 
+            <div
               className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-strong:text-gray-900 prose-blockquote:border-[#00b7ff] prose-blockquote:bg-gray-50 prose-blockquote:p-6 prose-blockquote:rounded-none"
-              dangerouslySetInnerHTML={{ __html: article.content }}
+              dangerouslySetInnerHTML={{ __html: isRTL ? article.contentAr : article.content }}
             />
           </ScrollBasedAnimation>
 
-          {/* Tags */}
+          {/* Tags - Placeholder since not in schema */}
           <ScrollBasedAnimation direction="up" delay={0.6} duration={0.6}>
             <div className="mt-12 pt-8 border-t border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 {isRTL ? 'العلامات' : 'Tags'}
               </h3>
               <div className="flex flex-wrap gap-2">
-                {article.tags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-none hover:bg-[#00b7ff] hover:text-white transition-colors duration-300 cursor-pointer"
-                  >
-                    {tag}
-                  </span>
-                ))}
+                <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-none">
+                  {article.category}
+                </span>
               </div>
             </div>
           </ScrollBasedAnimation>
@@ -250,30 +200,27 @@ export default function BlogDetailPage() {
           </ScrollBasedAnimation>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {Object.entries(fullArticles)
-              .filter(([key]) => key !== slug)
-              .slice(0, 3)
-              .map(([key, relatedArticle], index) => (
-              <ScrollBasedAnimation key={key} direction="up" delay={0.9 + index * 0.1} duration={0.6}>
-                <Link href={`/blog/${relatedArticle.slug}`}>
+            {relatedArticles.map((relatedArticle, index) => (
+              <ScrollBasedAnimation key={relatedArticle._id} direction="up" delay={0.9 + index * 0.1} duration={0.6}>
+                <Link href={`/blog/${relatedArticle.slug.current}`}>
                   <div className="group bg-white border border-gray-200 hover:border-[#00b7ff] transition-colors duration-300 overflow-hidden">
                     <div className="relative h-48 overflow-hidden">
                       <Image
-                        src={relatedArticle.image}
-                        alt={relatedArticle.title}
+                        src={relatedArticle.images?.[0] ? urlFor(relatedArticle.images[0]).width(800).height(400).url() : "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80"}
+                        alt={isRTL ? relatedArticle.titleAr : relatedArticle.title}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                     </div>
                     <div className="p-6">
                       <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[#00b7ff] transition-colors duration-300">
-                        {relatedArticle.title}
+                        {isRTL ? relatedArticle.titleAr : relatedArticle.title}
                       </h3>
                       <p className="text-sm text-gray-600 mb-4">
-                        {relatedArticle.excerpt.substring(0, 100)}...
+                        {(isRTL ? relatedArticle.introductionAr : relatedArticle.introduction).substring(0, 100)}...
                       </p>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500">{relatedArticle.date}</span>
+                        <span className="text-sm text-gray-500">{new Date(relatedArticle.publishedAt).toLocaleDateString()}</span>
                         <BookOpen className="w-4 h-4 text-[#00b7ff]" />
                       </div>
                     </div>

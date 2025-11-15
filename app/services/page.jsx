@@ -1,39 +1,51 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useScroll, useTransform, motion } from "framer-motion";
 import ScrollBasedAnimation from "@/components/ScrollBasedAnimation";
 import Image from "next/image";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
 function ServicesPage() {
   const heroRef = useRef(null);
   const [flippedIndex, setFlippedIndex] = useState(null);
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
 
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const data = await client.fetch('*[_type == "service"]');
+        setServices(data);
+      } catch (error) {
+        console.error('Error fetching services:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const services = t('services.services', { returnObjects: true });
+    fetchServices();
+  }, []);
 
-  const serviceImages = [
-    "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
-    "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
-    "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=800&q=80",
-    "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&q=80",
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80"
-  ];
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#00b7ff]"></div>
+          <p className="mt-4 text-gray-600">Loading services...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50" dir={isRTL ? "rtl" : "ltr"}>
       {/* Hero Section */}
       <section ref={heroRef} className="relative h-screen w-full overflow-hidden bg-black">
-        <motion.div style={{ y: imageY }} className="absolute inset-0 h-[120%] w-full">
+        <div className="absolute inset-0 h-[120%] w-full">
           <Image
             src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&q=80"
             alt="Professional accounting services"
@@ -41,11 +53,11 @@ function ServicesPage() {
             className="object-cover opacity-70"
             priority
           />
-        </motion.div>
+        </div>
 
         <div className="absolute inset-0 bg-gradient-to-br from-[#00B7FF]/80 to-[#0099CC]/60" />
 
-        <motion.div style={{ opacity: contentOpacity }} className="relative z-10 flex flex-col justify-center h-full pt-24">
+        <div className="relative z-10 flex flex-col justify-center h-full pt-24">
           <div className="max-w-7xl px-6 mx-auto">
             <div className={`max-w-3xl space-y-6 ${isRTL ? 'text-right' : 'text-left'}`}>
               <ScrollBasedAnimation delay={0.1} duration={0.6} direction="up">
@@ -69,7 +81,7 @@ function ServicesPage() {
               </ScrollBasedAnimation>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         <div className="absolute bottom-0 left-0 w-64 h-32 bg-[#0099CC]/20 transform skew-x-12"></div>
         <div className="absolute top-40 right-0 w-48 h-48 border-4 border-white/10 transform rotate-45"></div>
@@ -104,8 +116,8 @@ function ServicesPage() {
                       <div className="relative h-full flex flex-col border-t-4 border-[#00b7ff]">
                         <div className="relative h-48 w-full overflow-hidden">
                           <Image
-                            src={serviceImages[index]}
-                            alt={service.title}
+                            src={service.image ? urlFor(service.image).width(800).height(400).url() : "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80"}
+                            alt={isRTL ? service.titleAr : service.title}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
                           />
@@ -114,18 +126,18 @@ function ServicesPage() {
                         <div className="flex flex-col p-6 flex-grow">
                           <div className="mb-3">
                             <span className="text-xs font-bold text-[#00b7ff] uppercase tracking-wider">
-                              {service.subtitle}
+                              {isRTL ? service.subtitleAr : service.subtitle}
                             </span>
                           </div>
                           <h3 className="mb-3 text-xl font-bold text-gray-900 group-hover:text-[#00b7ff] transition-colors">
-                            {service.title}
+                            {isRTL ? service.titleAr : service.title}
                           </h3>
                           <p className="flex-grow text-sm leading-relaxed text-gray-600">
-                            {service.description}
+                            {isRTL ? service.descriptionAr : service.description}
                           </p>
                           <div className="mt-4 pt-4 border-t border-gray-100">
                             <div className="flex flex-wrap gap-1">
-                              {service.features.slice(0, 2).map((feature, i) => (
+                              {(isRTL ? service.featuresAr : service.features).slice(0, 2).map((feature, i) => (
                                 <span key={i} className="text-xs bg-[#00b7ff]/10 text-[#00b7ff] px-2 py-1 rounded">
                                   {feature}
                                 </span>
@@ -147,14 +159,14 @@ function ServicesPage() {
                       <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-white/30"></div>
                       <div className="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-white/30"></div>
 
-                      <h3 className="mb-4 text-2xl font-bold text-center">{service.title}</h3>
+                      <h3 className="mb-4 text-2xl font-bold text-center">{isRTL ? service.titleAr : service.title}</h3>
                       <p className="mb-8 text-sm text-center">
-                        {service.subtitle}
+                        {isRTL ? service.subtitleAr : service.subtitle}
                       </p>
 
                       {/* Features List */}
                       <ul className={`space-y-3 text-sm w-full max-w-sm ${isRTL ? 'text-right' : 'text-left'}`}>
-                        {service.features.map((feature, i) => (
+                        {(isRTL ? service.featuresAr : service.features).map((feature, i) => (
                           <li key={i} className={`flex items-start gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                             <svg
                               className="mt-1 h-4 w-4 flex-shrink-0 text-[#6EFF33]"

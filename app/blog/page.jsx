@@ -1,111 +1,65 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useScroll, useTransform, motion } from "framer-motion";
 import Link from "next/link";
 import ScrollBasedAnimation from "../../components/ScrollBasedAnimation";
 import Image from "next/image";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
 export default function BlogPage() {
   const heroRef = useRef(null);
   const [flippedIndex, setFlippedIndex] = useState(null);
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
 
-  const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const data = await client.fetch('*[_type == "blogs"] | order(publishedAt desc)');
+        setArticles(data);
+      } catch (error) {
+        console.error('Error fetching blogs:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const blogArticles = {
-    automation: {
-      title: t('blogArticles.automation.title'),
-      excerpt: t('blogArticles.automation.excerpt'),
-      author: 'Ahmed Al-Rashid',
-      date: 'Nov 10, 2025',
-      image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
-      readTime: t('blogArticles.automation.readTime'),
-      category: t('blogArticles.automation.category'),
-      tags: t('blogArticles.automation.tags', { returnObjects: true })
-    },
-    zatca: {
-      title: t('blogArticles.zatca.title'),
-      excerpt: t('blogArticles.zatca.excerpt'),
-      author: 'Sarah Mohamed',
-      date: 'Oct 22, 2025',
-      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
-      readTime: t('blogArticles.zatca.readTime'),
-      category: t('blogArticles.zatca.category'),
-      tags: t('blogArticles.zatca.tags', { returnObjects: true })
-    },
-    security: {
-      title: t('blogArticles.security.title'),
-      excerpt: t('blogArticles.security.excerpt'),
-      author: 'Khalid Hassan',
-      date: 'Sep 15, 2025',
-      image: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=800&q=80",
-      readTime: t('blogArticles.security.readTime'),
-      category: t('blogArticles.security.category'),
-      tags: t('blogArticles.security.tags', { returnObjects: true })
-    },
-    analytics: {
-      title: t('blogArticles.analytics.title'),
-      excerpt: t('blogArticles.analytics.excerpt'),
-      author: 'Fatima Al-Zahrani',
-      date: 'Aug 30, 2025',
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&q=80",
-      readTime: t('blogArticles.analytics.readTime'),
-      category: t('blogArticles.analytics.category'),
-      tags: t('blogArticles.analytics.tags', { returnObjects: true })
-    },
-    scaling: {
-      title: t('blogArticles.scaling.title'),
-      excerpt: t('blogArticles.scaling.excerpt'),
-      author: 'Omar Abdullah',
-      date: 'Jul 12, 2025',
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
-      readTime: t('blogArticles.scaling.readTime'),
-      category: t('blogArticles.scaling.category'),
-      tags: t('blogArticles.scaling.tags', { returnObjects: true })
-    },
-    tips: {
-      title: t('blogArticles.tips.title'),
-      excerpt: t('blogArticles.tips.excerpt'),
-      author: 'Layla Ibrahim',
-      date: 'Jun 5, 2025',
-      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80",
-      readTime: t('blogArticles.tips.readTime'),
-      category: t('blogArticles.tips.category'),
-      tags: t('blogArticles.tips.tags', { returnObjects: true })
-    }
-  };
-
-  const articles = Object.entries(blogArticles).map(([key, article]) => ({
-    ...article,
-    slug: key
-  }));
+    fetchBlogs();
+  }, []);
 
   const featuredArticle = articles[0];
   const otherArticles = articles.slice(1);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#00b7ff]"></div>
+          <p className="mt-4 text-gray-600">Loading blogs...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50" dir={isRTL ? "rtl" : "ltr"}>
       {/* Hero Section */}
       <section ref={heroRef} className="relative h-screen w-full overflow-hidden bg-black">
-        <motion.div style={{ y: videoY }} className="absolute inset-0 h-[120%] w-full">
+        <div className="absolute inset-0 h-[120%] w-full">
           <img
             src="https://images.unsplash.com/photo-1657639028182-24e11504c7c1?q=80&w=1470&auto=format&fit=crop"
             alt="Professional workspace"
             className="h-full w-full object-cover opacity-70"
           />
-        </motion.div>
+        </div>
 
         <div className="absolute inset-0 bg-gradient-to-br from-[#00B7FF]/80 to-[#0099CC]/60" />
 
-        <motion.div style={{ opacity: contentOpacity }} className="relative z-10 flex flex-col justify-center h-full pt-24">
+        <div className="relative z-10 flex flex-col justify-center h-full pt-24">
           <div className="max-w-7xl px-6 mx-auto">
             <div className={`max-w-3xl space-y-6 ${isRTL ? 'text-right' : 'text-left'}`}>
               <ScrollBasedAnimation delay={0.1} duration={0.6} direction="up">
@@ -129,7 +83,7 @@ export default function BlogPage() {
               </ScrollBasedAnimation>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         <div className="absolute bottom-0 left-0 w-64 h-32 bg-[#0099CC]/20 transform skew-x-12"></div>
         <div className="absolute top-40 right-0 w-48 h-48 border-4 border-white/10 transform rotate-45"></div>
@@ -151,17 +105,17 @@ export default function BlogPage() {
               <div className="relative max-w-5xl mx-auto">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#00B7FF]/10 to-[#0099CC]/10 transform translate-x-4 translate-y-4"></div>
                 
-                <Link href={`/blog/${featuredArticle.slug}`}>
+                <Link href={`/blog/${featuredArticle.slug.current}`}>
                   <div className="relative group bg-white border-l-4 border-[#00b7ff] cursor-pointer">
                     <div className="relative h-96 overflow-hidden">
                       <Image
-                        src={featuredArticle.image}
-                        alt={featuredArticle.title}
+                        src={featuredArticle.images?.[0] ? urlFor(featuredArticle.images[0]).width(800).height(400).url() : "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80"}
+                        alt={isRTL ? featuredArticle.titleAr : featuredArticle.title}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                      
+
                       <div className="absolute bottom-0 left-0 w-full p-8 text-white">
                         <div className={`flex items-center gap-4 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
                           <span className="bg-[#00b7ff] px-4 py-1 text-sm font-bold">
@@ -169,13 +123,13 @@ export default function BlogPage() {
                           </span>
                         </div>
                         <h3 className="text-3xl font-bold mb-4 group-hover:text-[#00b7ff] transition-colors">
-                          {featuredArticle.title}
+                          {isRTL ? featuredArticle.titleAr : featuredArticle.title}
                         </h3>
                         <p className="text-lg leading-relaxed mb-6">
-                          {featuredArticle.excerpt}
+                          {isRTL ? featuredArticle.introductionAr : featuredArticle.introduction}
                         </p>
                         <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
-                          <span className="text-sm">{featuredArticle.author} • {featuredArticle.date}</span>
+                          <span className="text-sm">{new Date(featuredArticle.publishedAt).toLocaleDateString()}</span>
                           <span className={`flex items-center gap-2 text-sm font-bold ${isRTL ? 'flex-row-reverse' : ''}`}>
                             {t('blogPage.hero.readMore')}
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -217,8 +171,8 @@ export default function BlogPage() {
                       <div className="relative h-full flex flex-col border-t-4 border-[#00b7ff]">
                         <div className="relative h-48 w-full overflow-hidden">
                           <Image
-                            src={article.image}
-                            alt={article.title}
+                            src={article.images?.[0] ? urlFor(article.images[0]).width(800).height(400).url() : "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80"}
+                            alt={isRTL ? article.titleAr : article.title}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
                           />
@@ -231,13 +185,13 @@ export default function BlogPage() {
                             </span>
                           </div>
                           <h3 className="mb-3 text-xl font-bold text-gray-900 group-hover:text-[#00b7ff] transition-colors">
-                            {article.title}
+                            {isRTL ? article.titleAr : article.title}
                           </h3>
                           <p className="flex-grow text-sm leading-relaxed text-gray-600">
-                            {article.excerpt}
+                            {isRTL ? article.introductionAr : article.introduction}
                           </p>
                           <div className="mt-4 pt-4 border-t border-gray-100">
-                            <span className="text-xs text-gray-500">{article.date}</span>
+                            <span className="text-xs text-gray-500">{new Date(article.publishedAt).toLocaleDateString()}</span>
                           </div>
                         </div>
                       </div>
@@ -254,15 +208,15 @@ export default function BlogPage() {
                       <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-white/30"></div>
                       <div className="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-white/30"></div>
                       
-                      <h3 className="mb-4 text-2xl font-bold text-center">{article.title}</h3>
+                      <h3 className="mb-4 text-2xl font-bold text-center">{isRTL ? article.titleAr : article.title}</h3>
                       <p className="mb-4 text-sm font-medium">
-                        {article.author} • {article.date}
+                        {new Date(article.publishedAt).toLocaleDateString()}
                       </p>
                       <p className="mb-8 text-sm">
-                        {article.readTime}
+                        {isRTL ? article.introductionAr : article.introduction}
                       </p>
                       <Link
-                        href={`/blog/${article.slug}`}
+                        href={`/blog/${article.slug.current}`}
                         className="border-2 border-white px-8 py-3 text-sm font-bold uppercase tracking-wider hover:bg-white hover:text-[#00b7ff] transition-all"
                       >
                         {t('blogPage.hero.readMore')}

@@ -98,8 +98,8 @@ export default function Footer() {
                 <p className="relative py-2 px-3">
                   <span className="font-semibold text-gray-700">{t('footer.contactInfo.emailLabel')}</span>
                   <br />
-                  <a href="mailto:hello@creativeaccounting.sa" className="text-gray-600 hover:text-[#00b7ff] transition-colors">
-                    hello@creativeaccounting.sa
+                  <a href="mailto:info@creativeeaccounting.com" className="text-gray-600 hover:text-[#00b7ff] transition-colors">
+                    info@creativeeaccounting.com
                   </a>
                 </p>
               </div>
@@ -108,8 +108,8 @@ export default function Footer() {
                 <p className="relative py-2 px-3">
                   <span className="font-semibold text-gray-700">{t('footer.contactInfo.phoneLabel')}</span>
                   <br />
-                  <a href="tel:+966111234567" className="text-gray-600 hover:text-[#00b7ff] transition-colors">
-                    +966 11 123 4567
+                  <a href="tel:+966506397402" className="text-gray-600 hover:text-[#00b7ff] transition-colors">
+                    +966 506397402
                   </a>
                 </p>
               </div>
@@ -118,7 +118,7 @@ export default function Footer() {
                 <p className="relative py-2 px-3">
                   <span className="font-semibold text-gray-700">{t('footer.contactInfo.locationLabel')}</span>
                   <br />
-                  <span className="text-gray-600">Riyadh, Saudi Arabia</span>
+                  <span className="text-gray-600">Riafh Ibn Rafi Street, Al Olaya, Riyadh, Saudi Arabia</span>
                 </p>
               </div>
             </div>
