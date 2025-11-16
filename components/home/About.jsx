@@ -85,14 +85,14 @@ export default function AboutSection() {
                 </div>
                 {/* Image Side */}
                 <div className={`${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
-                  <div className="relative h-60 w-full overflow-hidden rounded-lg">
+                  <div className="relative h-60 md:h-90 w-full overflow-hidden">
                     <Image
                       src={images[index]}
                       alt={section.title}
                       fill
                       className="object-cover"
                     />
-                    <div className={`absolute -bottom-4 ${isRTL ? '-left-4' : '-right-4'} bg-[#00B7FF] text-white p-4 font-bold text-sm rounded`}>
+                    <div className={`absolute -bottom-0 ${isRTL ? '-left-0' : '-right-0'} bg-[#00B7FF] text-white p-4 font-bold text-sm `}>
                       {section.highlight}
                     </div>
                   </div>

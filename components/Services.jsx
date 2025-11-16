@@ -65,7 +65,7 @@ export default function Services() {
         {/* Service Cards Grid */}
         {loading ? (
           <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#00b7ff]"></div>
+            <div className="animate-spin h-12 w-12 border-b-2 border-[#00b7ff]"></div>
           </div>
         ) : (
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -97,7 +97,7 @@ export default function Services() {
                     >
                       {/* Front Side */}
                       <div className="absolute inset-0 flex flex-col bg-white [backface-visibility:hidden] [transform:rotateY(0deg)]">
-                        <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
+                        <div className="relative h-60 w-full overflow-hidden">
                           <Image
                             src={urlFor(processedService.image).url()}
                             alt={processedService.title}
