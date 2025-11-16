@@ -1,24 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import ScrollBasedAnimation from "./ScrollBasedAnimation";
 import Image from "next/image";
+import { client } from "../sanity/lib/client";
+import { urlFor } from "../sanity/lib/image";
+import groq from "groq";
 
 export default function Services() {
   const [flippedIndex, setFlippedIndex] = useState(null);
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const services = t('services.services', { returnObjects: true });
-
-  const serviceImages = [
-    "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&q=80",
-    "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80",
-    "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=600&q=80",
-    "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&q=80",
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80"
-  ];
+  useEffect(() => {
+    const fetchServices = async () => {
+      const query = groq`*[_type == "service"][0...3] { title, titleAr, subtitle, subtitleAr, description, descriptionAr, features, featuresAr, image }`;
+      const data = await client.fetch(query);
+      setServices(data);
+      setLoading(false);
+    };
+    fetchServices();
+  }, []);
 
   return (
     <section
@@ -58,87 +63,102 @@ export default function Services() {
         </div>
 
         {/* Service Cards Grid */}
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
-            <ScrollBasedAnimation
-              key={index}
-              direction="up"
-              delay={0.1 + index * 0.05}
-              duration={0.6}
-            >
-              <div
-                className="group relative h-[450px] cursor-pointer"
-                style={{ perspective: "1000px" }}
-                onMouseEnter={() => setFlippedIndex(index)}
-                onMouseLeave={() => setFlippedIndex(null)}
-              >
-                <div
-                  className={`relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] ${
-                    flippedIndex === index ? "rotate-y-180" : ""
-                  }`}
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#00b7ff]"></div>
+          </div>
+        ) : (
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service, index) => {
+              const processedService = {
+                title: isRTL ? service.titleAr : service.title,
+                subtitle: isRTL ? service.subtitleAr : service.subtitle,
+                description: isRTL ? service.descriptionAr : service.description,
+                features: isRTL ? service.featuresAr : service.features,
+                image: service.image
+              };
+              return (
+                <ScrollBasedAnimation
+                  key={index}
+                  direction="up"
+                  delay={0.1 + index * 0.05}
+                  duration={0.6}
                 >
-                  {/* Front Side */}
-                  <div className="absolute inset-0 flex flex-col bg-white [backface-visibility:hidden] [transform:rotateY(0deg)]">
-                    <div className="relative h-56 w-full overflow-hidden">
-                      <Image
-                        src={serviceImages[index]}
-                        alt={service.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      {/* Top Accent Line */}
-                      <div className="absolute left-0 top-0 h-1 w-0 bg-[#00b7ff] transition-all duration-500 group-hover:w-full" />
-                    </div>
+                  <div
+                    className="group relative h-[450px] cursor-pointer"
+                    style={{ perspective: "1000px" }}
+                    onMouseEnter={() => setFlippedIndex(index)}
+                    onMouseLeave={() => setFlippedIndex(null)}
+                  >
+                    <div
+                      className={`relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] ${
+                        flippedIndex === index ? "rotate-y-180" : ""
+                      }`}
+                    >
+                      {/* Front Side */}
+                      <div className="absolute inset-0 flex flex-col bg-white [backface-visibility:hidden] [transform:rotateY(0deg)]">
+                        <div className="relative h-56 w-full overflow-hidden">
+                          <Image
+                            src={urlFor(processedService.image).url()}
+                            alt={processedService.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          />
+                          {/* Top Accent Line */}
+                          <div className="absolute left-0 top-0 h-1 w-0 bg-[#00b7ff] transition-all duration-500 group-hover:w-full" />
+                        </div>
 
-                    <div className="flex flex-col p-8 flex-grow justify-center text-center">
-                      <div className="mb-6">
-                        <p className="text-sm font-semibold uppercase tracking-wider text-[#00b7ff] mb-3">
-                          {service.subtitle}
-                        </p>
+                        <div className="flex flex-col p-8 flex-grow justify-center text-center">
+                          <div className="mb-6">
+                            <p className="text-sm font-semibold uppercase tracking-wider text-[#00b7ff] mb-3">
+                              {processedService.subtitle}
+                            </p>
+                          </div>
+
+                          <p className="text-base leading-relaxed text-gray-600">
+                            {processedService.description}
+                          </p>
+                        </div>
+
+                        {/* Bottom Accent Line */}
+                        <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-[#00b7ff] to-transparent transition-all duration-500 group-hover:w-full" />
                       </div>
-                      
-                      <p className="text-base leading-relaxed text-gray-600">
-                        {service.description}
-                      </p>
+
+                      {/* Back Side */}
+                      <div className="absolute inset-0 flex flex-col items-center justify-center border-2 border-[#00b7ff] bg-[#00b7ff] p-8 text-center text-white [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                        <h3 className="mb-8 text-3xl font-bold">{processedService.title}</h3>
+
+                        {/* Complete Features List */}
+                        <ul className={`space-y-4 text-lg w-full max-w-sm ${isRTL ? 'text-right' : 'text-left'}`}>
+                          {processedService.features.map((feature, i) => (
+                            <li key={i} className={`flex items-start gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                              <svg
+                                className="mt-1 h-5 w-5 flex-shrink-0 text-[#6EFF33]"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M5 13l4 4L19 7"
+                                />
+                              </svg>
+                              <span className="font-medium">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+
+                      </div>
                     </div>
-
-                    {/* Bottom Accent Line */}
-                    <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-[#00b7ff] to-transparent transition-all duration-500 group-hover:w-full" />
                   </div>
-
-                  {/* Back Side */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center border-2 border-[#00b7ff] bg-[#00b7ff] p-8 text-center text-white [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                    <h3 className="mb-8 text-3xl font-bold">{service.title}</h3>
-                    
-                    {/* Complete Features List */}
-                    <ul className={`space-y-4 text-lg w-full max-w-sm ${isRTL ? 'text-right' : 'text-left'}`}>
-                      {service.features.map((feature, i) => (
-                        <li key={i} className={`flex items-start gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                          <svg
-                            className="mt-1 h-5 w-5 flex-shrink-0 text-[#6EFF33]"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                          <span className="font-medium">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                
-                  </div>
-                </div>
-              </div>
-            </ScrollBasedAnimation>
-          ))}
-        </div>
+                </ScrollBasedAnimation>
+              );
+            })}
+          </div>
+        )}
 
         {/* CTA Section */}
         <div className="mt-20 lg:mt-32 text-center">

@@ -9,7 +9,11 @@ export default function AboutSection() {
   const isRTL = i18n.language === 'ar';
 
   const aboutSections = t('about.sections', { returnObjects: true });
-
+  const images = [
+    "https://res.cloudinary.com/dl9d4khcs/image/upload/v1763300723/about1_lt49ya.png",
+    "https://res.cloudinary.com/dl9d4khcs/image/upload/v1763300723/about2_xu8bs9.png",
+    "https://res.cloudinary.com/dl9d4khcs/image/upload/v1763300723/about3_vgu6wv.png"
+  ];
   return (
     <section className="py-20 lg:py-32 bg-white" dir={isRTL ? "rtl" : "ltr"}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -79,16 +83,11 @@ export default function AboutSection() {
                     </div>
                   </div>
                 </div>
-
                 {/* Image Side */}
                 <div className={`${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
                   <div className="relative">
                     <Image
-                      src={`https://images.unsplash.com/photo-${[
-                        "1522202176988-66273c2fd55f",
-                        "1552664730-d307ca884978",
-                        "1553484771-371a605b060b"
-                      ][index]}?w=600&q=80`}
+                      src={images[index]}
                       alt={section.title}
                       width={600}
                       height={400}
