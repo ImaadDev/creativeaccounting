@@ -15,7 +15,7 @@ export default function AboutSection() {
     "https://res.cloudinary.com/dl9d4khcs/image/upload/v1763300723/about3_vgu6wv.png"
   ];
   return (
-    <section className="py-20 lg:py-32 bg-white" dir={isRTL ? "rtl" : "ltr"}>
+    <section className="py-20 lg:py-32 bg-white overflow-hidden" dir={isRTL ? "rtl" : "ltr"}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <div className={`text-center mb-20 ${isRTL ? 'text-right' : 'text-left'}`}>
@@ -85,15 +85,14 @@ export default function AboutSection() {
                 </div>
                 {/* Image Side */}
                 <div className={`${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
-                  <div className="relative">
+                  <div className="relative h-60 w-full overflow-hidden rounded-lg">
                     <Image
                       src={images[index]}
                       alt={section.title}
-                      width={600}
-                      height={400}
-                      className="w-full h-auto"
+                      fill
+                      className="object-cover"
                     />
-                    <div className={`absolute -bottom-4 ${isRTL ? '-left-4' : '-right-4'} bg-[#00B7FF] text-white p-4 font-bold text-sm`}>
+                    <div className={`absolute -bottom-4 ${isRTL ? '-left-4' : '-right-4'} bg-[#00B7FF] text-white p-4 font-bold text-sm rounded`}>
                       {section.highlight}
                     </div>
                   </div>

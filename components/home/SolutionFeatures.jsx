@@ -80,7 +80,7 @@ export default function BlogSection() {
                 >
                   {/* Front Side */}
                   <div className="absolute inset-0 flex flex-col bg-white [backface-visibility:hidden] [transform:rotateY(0deg)]">
-                    <div className="relative h-40 w-full overflow-hidden">
+                    <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
                       <Image
                         src={articleImages[index]}
                         alt={article.title}

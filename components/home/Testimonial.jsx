@@ -181,7 +181,7 @@ export default function TestimonialSection() {
                         >
                           {/* Front Side */}
                           <div className="absolute inset-0 flex flex-col bg-white [backface-visibility:hidden] [transform:rotateY(0deg)]">
-                            <div className="relative h-56 w-full overflow-hidden">
+                            <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
                               <Image
                                 src={processedTestimonial.image ? urlFor(processedTestimonial.image).url() : "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80"}
                                 alt={processedTestimonial.name}

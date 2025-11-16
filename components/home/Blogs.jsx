@@ -86,7 +86,7 @@ export default function Blogs() {
                 >
                   <Link href={`/blog/${processedBlog.slug}`} className="group block">
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                      <div className="relative h-48 w-full overflow-hidden">
+                      <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
                         <Image
                           src={processedBlog.image ? urlFor(processedBlog.image).url() : "/CaLogo.png"}
                           alt={processedBlog.title}

@@ -81,7 +81,7 @@ export default function ContactSection() {
   const contactInfo = t('contact.leftPanel.contactInfo', { returnObjects: true });
 
   return (
-    <section className="w-full relative" dir={isRTL ? "rtl" : "ltr"}>
+    <section className="w-full relative overflow-hidden" dir={isRTL ? "rtl" : "ltr"}>
       {/* Header */}
       <div className="bg-white text-center py-20 px-6 md:px-12 lg:px-24">
         <ScrollBasedAnimation direction="up" offset={50}>
