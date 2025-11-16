@@ -22,10 +22,20 @@ export const metadata = {
   },
   description: "Leading accounting firm in Riyadh, Saudi Arabia. Expert bookkeeping, VAT compliance, auditing, payroll & financial advisory services. ZATCA certified. Call +966 11 123 4567.",
   keywords: [
-    "accounting services Riyadh", "bookkeeping Saudi Arabia", "VAT compliance Riyadh", "audit services Jeddah",
-    "payroll management Saudi Arabia", "financial advisory Riyadh", "ZATCA compliance", "accounting firm Riyadh",
-    "tax services Saudi Arabia", "business accounting Riyadh", "محاسبة الرياض", "خدمات محاسبية السعودية",
-    "ضريبة القيمة المضافة الرياض", "مراجعة الحسابات جدة", "إدارة الرواتب السعودية"
+    // Company Formation Keywords
+    "تأسيس الشركات في السعودية", "تأسيس شركة", "فتح شركة في السعودية", "شروط تأسيس شركة في السعودية", "خطوات تأسيس شركة", "إجراءات تأسيس شركة", "تكاليف تأسيس شركة", "رسوم تأسيس شركة", "تأسيس شركة ذات مسؤولية محدودة", "إنشاء شركة في السعودية", "متطلبات تأسيس شركة", "نظام تأسيس الشركات", "استشارات تأسيس الشركات",
+    "Company Formation", "Saudi Company Formation", "Register Company Saudi Arabia", "Company Registration Saudi", "LLC Formation Saudi Arabia",
+
+    // VAT & Tax Keywords
+    "التسجيل في الضريبة", "التسجيل في ضريبة القيمة المضافة", "التسجيل في الضريبة المضافة", "شهادة تسجيل في ضريبة القيمة المضافة", "حد التسجيل في ضريبة القيمة المضافة", "الاشتراك في ضريبة القيمة المضافة", "التسجيل الإلزامي في ضريبة القيمة المضافة", "تسجيل الشركات في ضريبة القيمة المضافة", "تسجيل المنشآت في ضريبة القيمة المضافة", "تقديم إقرار ضريبة القيمة المضافة", "تقديم الإقرار الضريبي", "طريقة التسجيل في ضريبة القيمة المضافة", "كيفية التسجيل في القيمة المضافة", "طريقة تقديم إقرار ضريبة القيمة المضافة", "موعد تقديم الإقرار", "مستشار ضريبة القيمة المضافة",
+    "VAT Registration Saudi Arabia", "ZATCA Registration", "VAT Compliance Saudi", "Tax Registration Saudi", "VAT Return Filing", "Saudi VAT Consultant",
+
+    // Accounting Services Keywords
+    "شركة محاسبة في السعودية", "شركة محاسبة في الرياض", "شركة محاسبة في جدة", "شركة محاسبة في الخبر", "أكبر شركات المحاسبة", "أفضل شركات المحاسبة", "محاسب قانوني", "محاسب شركات", "محاسبة المطاعم", "محاسبة العيادات", "محاسبة المقاولات", "محاسبة كتب", "خدمات محاسبة كتب", "تسجيل المعاملات", "تقارير مالية", "محاسبة الرياض", "محاسبة كتب جدة", "محاسبة كتب الدمام", "محاسبة كتب الخبر", "محاسبة كتب مكة", "محاسبة كتب المدينة", "امتثال محاسبي", "إدارة السجلات المالية", "محاسبة سعودية", "خدمات محاسبية",
+    "accounting firm Saudi Arabia", "accounting services Riyadh", "accounting company Jeddah", "accounting services Khobar", "best accounting firms Saudi", "certified accountant Saudi", "corporate accountant", "restaurant accounting", "clinic accounting", "construction accounting", "bookkeeping", "bookkeeping services", "transaction recording", "financial reports", "Riyadh bookkeeping", "Jeddah bookkeeping", "Dammam bookkeeping", "Khobar bookkeeping", "Makkah bookkeeping", "Madinah bookkeeping", "accounting compliance", "financial record management", "Saudi bookkeeping", "accounting services",
+
+    // Legacy Keywords
+    "accounting services Riyadh", "bookkeeping Saudi Arabia", "VAT compliance Riyadh", "audit services Jeddah", "payroll management Saudi Arabia", "financial advisory Riyadh", "ZATCA compliance", "accounting firm Riyadh", "tax services Saudi Arabia", "business accounting Riyadh", "محاسبة الرياض", "خدمات محاسبية السعودية", "ضريبة القيمة المضافة الرياض", "مراجعة الحسابات جدة", "إدارة الرواتب السعودية"
   ],
   authors: [{ name: "Creative Accounting" }],
   creator: "Creative Accounting",
@@ -36,10 +46,9 @@ export const metadata = {
     telephone: false,
   },
   alternates: {
-    canonical: '/',
+    canonical: 'https://creativeeaccounting.com',
     languages: {
-      'en': '/',
-      'ar': '/'
+      'ar': 'https://creativeeaccounting.com',
     }
   },
   openGraph: {
@@ -49,20 +58,20 @@ export const metadata = {
     siteName: "Creative Accounting",
     images: [
       {
-        url: "/CaLogo.png",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "Creative Accounting Riyadh Logo"
       }
     ],
-    locale: "en_SA",
+    locale: "ar_SA",
     type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title: "Creative Accounting Riyadh | Professional Accounting Services Saudi Arabia",
     description: "Leading accounting firm in Riyadh, Saudi Arabia. Expert bookkeeping, VAT compliance, auditing, payroll & financial advisory services.",
-    images: ["/CaLogo.png"],
+    images: ["/logo.png"],
     creator: "@creativeaccounting"
   },
   robots: {
@@ -140,7 +149,19 @@ export default function RootLayout({ children }) {
       "Payroll Management",
       "Financial Advisory",
       "Tax Services",
-      "ZATCA Compliance"
+      "ZATCA Compliance",
+      "Company Formation",
+      "Business Setup",
+      "Restaurant Accounting",
+      "Clinic Accounting",
+      "Construction Accounting",
+      "Corporate Accounting",
+      "Financial Planning",
+      "Tax Planning",
+      "VAT Registration",
+      "Business Registration",
+      "Accounting Consultation",
+      "Financial Reporting"
     ],
     "priceRange": "$$",
     "openingHours": "Mo-Fr 08:00-17:00",
@@ -157,6 +178,22 @@ export default function RootLayout({ children }) {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
+            "name": "Company Formation Services",
+            "description": "Complete company registration and formation services in Saudi Arabia"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "VAT Registration & Compliance",
+            "description": "ZATCA VAT registration, compliance, and return filing services"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
             "name": "Bookkeeping Services",
             "description": "Professional bookkeeping and financial record management"
           }
@@ -165,8 +202,32 @@ export default function RootLayout({ children }) {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "VAT Compliance Services",
-            "description": "ZATCA VAT registration and compliance services"
+            "name": "Restaurant Accounting",
+            "description": "Specialized accounting services for restaurants and food businesses"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Clinic Accounting",
+            "description": "Accounting services tailored for medical clinics and healthcare facilities"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Construction Accounting",
+            "description": "Specialized accounting for construction companies and contractors"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Corporate Accounting",
+            "description": "Comprehensive accounting services for corporations and large businesses"
           }
         },
         {
@@ -205,7 +266,7 @@ export default function RootLayout({ children }) {
   };
 
   return (
-    <html lang="en" dir="ltr">
+    <html lang="ar" dir="rtl">
       <head>
         <script
           type="application/ld+json"
@@ -214,7 +275,7 @@ export default function RootLayout({ children }) {
           }}
         />
         <link rel="canonical" href="https://creativeeaccounting.com" />
-        <link rel="alternate" hrefLang="en" href="https://creativeeaccounting.com" />
+        <link rel="alternate" hrefLang="ar" href="https://creativeeaccounting.com" />
       </head>
       <body
         className={`${cairo.variable} antialiased relative font-sans`}
@@ -233,3 +294,4 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
