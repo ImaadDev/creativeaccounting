@@ -390,8 +390,10 @@
         }
       },
       "submitButton": "Send Message",
+      "submitting": "Sending...",
       "helperText": "* Required fields • We typically respond within 24 hours",
-      "successMessage": "Message sent successfully! We'll get back to you within 24 hours."
+      "successMessage": "Message sent successfully! We'll get back to you within 24 hours.",
+      "errorMessage": "Failed to send message. Please try again or contact us directly."
     }
   },
   "testimonials": {

@@ -21,6 +21,7 @@ export default function BlogPage() {
       try {
         const data = await client.fetch('*[_type == "blogs"] | order(publishedAt desc)');
         setArticles(data);
+        console.log("Blogs data: ", articles)
       } catch (error) {
         console.error('Error fetching blogs:', error);
       } finally {
@@ -40,6 +41,24 @@ export default function BlogPage() {
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#00b7ff]"></div>
           <p className="mt-4 text-gray-600">Loading blogs...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!articles || articles.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" dir={isRTL ? "rtl" : "ltr"}>
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            {isRTL ? 'لا توجد مقالات متاحة' : 'No Articles Available'}
+          </h1>
+          <p className="text-gray-600 mb-8">
+            {isRTL ? 'لم يتم نشر أي مقالات بعد. يرجى العودة لاحقاً.' : 'No articles have been published yet. Please check back later.'}
+          </p>
+          <Link href="/" className="inline-flex items-center justify-center bg-[#00b7ff] px-8 py-4 text-base font-bold uppercase tracking-wider text-white hover:bg-[#0099dd] transition-colors">
+            {isRTL ? 'العودة للرئيسية' : 'Back to Home'}
+          </Link>
         </div>
       </div>
     );

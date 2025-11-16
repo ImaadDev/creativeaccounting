@@ -19,6 +19,8 @@ export default function ContactSection() {
   });
 
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' or 'error'
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -39,12 +41,40 @@ export default function ContactSection() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      alert(t('contact.form.successMessage'));
-      setFormData({ name: '', email: '', company: '', subject: '', budget: '', message: '' });
-      setErrors({});
+      setIsSubmitting(true);
+      setSubmitStatus(null);
+
+      try {
+        const response = await fetch('/api/email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          setSubmitStatus('success');
+          setTimeout(() => {
+            setSubmitStatus(null);
+          }, 5000);
+          setFormData({ name: '', email: '', company: '', subject: '', budget: '', message: '' });
+          setErrors({});
+        } else {
+          setSubmitStatus('error');
+          setTimeout(() => {
+            setSubmitStatus(null);
+          }, 5000);
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        setSubmitStatus('error');
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -165,7 +195,7 @@ export default function ContactSection() {
                         placeholder={t('contact.form.fields.name.placeholder')}
                         value={formData.name}
                         onChange={handleChange}
-                        className={`w-full border-2 ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-4 outline-none focus:border-[#00B7FF] transition-colors bg-white ${
+                        className={`w-full border-2 ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-4 outline-none focus:border-[#00B7FF] text-gray-700 transition-colors bg-white ${
                           errors.name ? 'border-red-500' : 'border-gray-200'
                         } ${isRTL ? 'text-right' : 'text-left'}`}
                       />
@@ -185,7 +215,7 @@ export default function ContactSection() {
                         placeholder={t('contact.form.fields.email.placeholder')}
                         value={formData.email}
                         onChange={handleChange}
-                        className={`w-full border-2 ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-4 outline-none focus:border-[#00B7FF] transition-colors bg-white ${
+                        className={`w-full border-2 text-gray-700 ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-4 outline-none focus:border-[#00B7FF] transition-colors bg-white ${
                           errors.email ? 'border-red-500' : 'border-gray-200'
                         } ${isRTL ? 'text-right' : 'text-left'}`}
                       />
@@ -206,7 +236,7 @@ export default function ContactSection() {
                       placeholder={t('contact.form.fields.subject.placeholder')}
                       value={formData.subject}
                       onChange={handleChange}
-                      className={`w-full border-2 ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-4 outline-none focus:border-[#00B7FF] transition-colors bg-white ${
+                      className={`w-full border-2 text-gray-700 ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-4 outline-none focus:border-[#00B7FF] transition-colors bg-white ${
                         errors.subject ? 'border-red-500' : 'border-gray-200'
                       } ${isRTL ? 'text-right' : 'text-left'}`}
                     />
@@ -226,7 +256,7 @@ export default function ContactSection() {
                       placeholder={t('contact.form.fields.message.placeholder')}
                       value={formData.message}
                       onChange={handleChange}
-                      className={`w-full border-2 ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-4 outline-none focus:border-[#00B7FF] transition-colors resize-none bg-white ${
+                      className={`w-full border-2 text-gray-700 ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-4 outline-none focus:border-[#00B7FF] transition-colors resize-none bg-white ${
                         errors.message ? 'border-red-500' : 'border-gray-200'
                       } ${isRTL ? 'text-right' : 'text-left'}`}
                     />
@@ -237,13 +267,45 @@ export default function ContactSection() {
                 <div className="pt-4">
                   <button
                     type="submit"
-                    className="group relative inline-flex items-center justify-center w-full md:w-auto px-12 py-4 font-bold text-[#00B7FF] bg-transparent border-2 border-[#00B7FF] hover:bg-[#00B7FF] hover:text-white transition-all duration-300 tracking-wide"
+                    disabled={isSubmitting}
+                    className="group relative inline-flex items-center justify-center w-full md:w-auto px-12 py-4 font-bold text-[#00B7FF] bg-transparent border-2 border-[#00B7FF] hover:bg-[#00B7FF] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 tracking-wide"
                   >
                     <span className={`relative z-10 flex items-center justify-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                      <Send className={`w-5 h-5 transition-transform ${isRTL ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`} />
-                      {t('contact.form.submitButton')}
+                      {isSubmitting ? (
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        <Send className={`w-5 h-5 transition-transform ${isRTL ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`} />
+                      )}
+                      {isSubmitting ? t('contact.form.submitting') : t('contact.form.submitButton')}
                     </span>
                   </button>
+
+                  {submitStatus === 'success' && (
+                    <div className={`mt-4 p-4 bg-green-50 border border-green-200 rounded-md ${isRTL ? 'text-right' : 'text-left'}`}>
+                      <div className="flex items-center gap-2">
+                        <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <p className="text-green-800 font-medium">{t('contact.form.successMessage')}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {submitStatus === 'error' && (
+                    <div className={`mt-4 p-4 bg-red-50 border border-red-200 rounded-md ${isRTL ? 'text-right' : 'text-left'}`}>
+                      <div className="flex items-center gap-2">
+                        <div className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </div>
+                        <p className="text-red-800 font-medium">{t('contact.form.errorMessage')}</p>
+                      </div>
+                    </div>
+                  )}
+
                   <p className={`text-gray-500 text-sm mt-3 ${isRTL ? 'text-right' : 'text-center'}`}>
                     {t('contact.form.helperText')}
                   </p>
