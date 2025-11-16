@@ -44,7 +44,7 @@ export default function AboutSection() {
 
         {/* Alternating Content Sections */}
         <div className="space-y-24">
-          {aboutSections.map((section, index) => (
+          {Array.isArray(aboutSections) && aboutSections.map((section, index) => (
             <SmoothMotion
               key={index}
               direction={index % 2 === 0 ? (isRTL ? "right" : "left") : (isRTL ? "left" : "right")}

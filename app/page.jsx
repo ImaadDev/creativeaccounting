@@ -1,7 +1,7 @@
+import SolutionsSection from "../components/home/SolutionFeatures";
 import Hero from "../components/Hero";
 import About from "../components/home/About";
 import Services from "../components/Services";
-import Blogs from "../components/home/Blogs";
 import TestimonialSection from "@/components/home/Testimonial";
 import Contact from "../components/home/Contact";
 export const metadata = {
@@ -80,11 +80,9 @@ export default function Home() {
         </div>
       </section>
 
-     
-
-      <section id="blogs" className="bg-white">
+      <section id="solutions" className="bg-white">
         <div className="text-gray-900">
-          <Blogs />
+          <SolutionsSection />
         </div>
       </section>
 

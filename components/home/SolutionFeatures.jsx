@@ -60,7 +60,7 @@ export default function BlogSection() {
 
         {/* Blog Cards Grid */}
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {articles.map((article, index) => (
+          {Array.isArray(articles) && articles.map((article, index) => (
             <ScrollBasedAnimation
               key={index}
               direction="up"

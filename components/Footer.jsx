@@ -144,7 +144,7 @@ export default function Footer() {
           <div className={`flex items-center gap-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
             {/* Legal Links */}
             <div className={`flex gap-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              {legalLinks.map((link) => (
+              {Array.isArray(legalLinks) && legalLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}

@@ -29,7 +29,8 @@ if (pathname.startsWith("/studio")) return null;
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden";
+document.documentElement.style.overflow = isOpen ? "hidden" : "unset";
+document.body.style.overflow = isOpen ? "hidden" : "unset";
     } else {
       document.body.style.overflow = "unset";
     }
@@ -53,7 +54,7 @@ if (pathname.startsWith("/studio")) return null;
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="absolute left-0 right-0 top-0 z-[9999] mb-20"
-        dir={isRTL ? "rtl" : "ltr"}
+dir="ltr"
       >
         {/* 3D Layered Background */}
         <div className="relative">
@@ -138,7 +139,7 @@ if (pathname.startsWith("/studio")) return null;
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="relative  z-50 flex h-12 w-12 flex-col items-center justify-center gap-1.5 lg:hidden"
+                className="relative flex h-12 w-12 flex-col items-center justify-center gap-1.5 lg:hidden"
                 aria-label="Toggle menu"
               >
                 <div className="absolute inset-0 bg-[#00B7FF]/10 transform rotate-45"></div>
@@ -184,7 +185,7 @@ if (pathname.startsWith("/studio")) return null;
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-white lg:hidden overflow-hidden w-screen h-screen"
+            className="fixed inset-0 z-50 bg-white lg:hidden w-screen h-screen overflow-hidden"
             dir={isRTL ? "rtl" : "ltr"}
           >
             {/* Geometric Background */}
@@ -194,7 +195,8 @@ if (pathname.startsWith("/studio")) return null;
             <div className="absolute bottom-1/4 right-0 w-1 h-32 bg-[#0099CC]/20"></div>
 
             {/* Menu Content */}
-            <div className={`relative flex h-full flex-col items-center justify-center gap-8 ${isRTL ? 'text-right' : 'text-center'}`}>
+            <div className={`relative flex h-full flex-col items-center justify-center gap-8 text-center`}>
+
               {navLinks.map((link, index) => (
                 <motion.a
                   key={link.name}

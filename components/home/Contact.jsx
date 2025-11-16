@@ -121,7 +121,7 @@ export default function ContactSection() {
           </ScrollBasedAnimation>
 
           <div className="space-y-6">
-            {contactInfo.map((item, index) => (
+            {Array.isArray(contactInfo) && contactInfo.map((item, index) => (
               <ScrollBasedAnimation key={item.label} direction="right" offset={50} delay={index * 0.1}>
                 <div className={`group relative overflow-hidden bg-white/10 backdrop-blur-sm  p-6 border border-white/20 hover:border-[#6EFF33]/50 transition-all duration-300 ${isRTL ? 'text-right' : 'text-left'}`}>
                   <div className={`flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
