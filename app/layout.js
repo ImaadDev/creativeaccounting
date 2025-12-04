@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import LenisScroll from "@/components/LenisScroll";
 import SmoothScroll from "@/components/SmoothScroll";
 import GoogleTagManager from "@/components/GoogleTagManager";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 
 
@@ -16,7 +17,7 @@ const cairo = Cairo({
 })
 
 const GTM_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GTM_ID;
-
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata = {
   metadataBase: new URL('https://creativeeaccounting.com'),
@@ -286,7 +287,7 @@ export default function RootLayout({ children }) {
         style={{ backgroundColor: '#000814', color: '#FFFFFF' }}
       >
                 <GoogleTagManager GTM_MEASUREMENT_ID={GTM_MEASUREMENT_ID} />
-
+                <GoogleAnalytics GA_MEASUREMENT_ID={GA_MEASUREMENT_ID} />
       
 
         <div className="min-h-screen flex flex-col relative z-10">
