@@ -6,6 +6,7 @@ import LenisScroll from "@/components/LenisScroll";
 import SmoothScroll from "@/components/SmoothScroll";
 import GoogleTagManager from "@/components/GoogleTagManager";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import SocialLinkButton from "@/components/SocialLink";
 
 
 
@@ -292,6 +293,7 @@ export default function RootLayout({ children }) {
 
         <div className="min-h-screen flex flex-col relative z-10">
           <div className="relative z-10 flex-grow">
+            <SocialLinkButton/>
             <Navbar/>
         <SmoothScroll>{children}</SmoothScroll >
           </div>
