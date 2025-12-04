@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LenisScroll from "@/components/LenisScroll";
 import SmoothScroll from "@/components/SmoothScroll";
+import GoogleTagManager from "@/components/GoogleTagManager";
+
 
 
 const cairo = Cairo({
@@ -12,6 +14,8 @@ const cairo = Cairo({
   weight: ['300', '400', '600', '700', '900'], // choose the weights you need
   display: 'swap',                    // Prevent FOIT (flash of invisible text)
 })
+
+const GTM_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 
 export const metadata = {
@@ -281,6 +285,8 @@ export default function RootLayout({ children }) {
         className={`${cairo.variable} antialiased relative font-sans`}
         style={{ backgroundColor: '#000814', color: '#FFFFFF' }}
       >
+                <GoogleTagManager GTM_MEASUREMENT_ID={GTM_MEASUREMENT_ID} />
+
       
 
         <div className="min-h-screen flex flex-col relative z-10">
