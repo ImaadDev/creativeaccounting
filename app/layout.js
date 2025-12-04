@@ -23,10 +23,10 @@ const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 export const metadata = {
   metadataBase: new URL('https://creativeeaccounting.com'),
   title: {
-    default: "Creative Accounting | Professional Accounting Services Saudi Arabia",
-    template: "%s | Creative Accounting Riyadh"
+    default: "التسجيل في الضريبة | تأسيس الشركات في السعودية | محاسبة إبداعية",
+    template: "%s | محاسبة إبداعية الرياض"
   },
-  description: "Leading accounting firm in Riyadh, Saudi Arabia. Expert bookkeeping, VAT compliance, auditing, payroll & financial advisory services. ZATCA certified. Call +966 11 123 4567.",
+  description: "شركة محاسبة رائدة في الرياض، السعودية. خدمات محاسبة خبيرة، امتثال ضريبة القيمة المضافة، مراجعة، إدارة رواتب واستشارات مالية. معتمد من هيئة الزكاة والضريبة والجمارك. اتصل +966 11 123 4567.",
   keywords: [
     // Company Formation Keywords
     "تأسيس الشركات في السعودية", "تأسيس شركة", "فتح شركة في السعودية", "شروط تأسيس شركة في السعودية", "خطوات تأسيس شركة", "إجراءات تأسيس شركة", "تكاليف تأسيس شركة", "رسوم تأسيس شركة", "تأسيس شركة ذات مسؤولية محدودة", "إنشاء شركة في السعودية", "متطلبات تأسيس شركة", "نظام تأسيس الشركات", "استشارات تأسيس الشركات",
@@ -58,16 +58,16 @@ export const metadata = {
     }
   },
   openGraph: {
-    title: "Creative Accounting Riyadh | Professional Accounting Services Saudi Arabia",
-    description: "Leading accounting firm in Riyadh, Saudi Arabia. Expert bookkeeping, VAT compliance, auditing, payroll & financial advisory services. ZATCA certified.",
+    title: "التسجيل في الضريبة | تأسيس الشركات في السعودية | محاسبة إبداعية الرياض",
+    description: "شركة محاسبة رائدة في الرياض، السعودية. خدمات محاسبة خبيرة، امتثال ضريبة القيمة المضافة، مراجعة، إدارة رواتب واستشارات مالية. معتمد من هيئة الزكاة والضريبة والجمارك.",
     url: "https://creativeeaccounting.com",
-    siteName: "Creative Accounting",
+    siteName: "محاسبة إبداعية",
     images: [
       {
         url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: "Creative Accounting Riyadh Logo"
+        alt: "شعار محاسبة إبداعية الرياض"
       }
     ],
     locale: "ar_SA",
@@ -75,8 +75,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Creative Accounting Riyadh | Professional Accounting Services Saudi Arabia",
-    description: "Leading accounting firm in Riyadh, Saudi Arabia. Expert bookkeeping, VAT compliance, auditing, payroll & financial advisory services.",
+    title: "التسجيل في الضريبة | تأسيس الشركات في السعودية | محاسبة إبداعية الرياض",
+    description: "شركة محاسبة رائدة في الرياض، السعودية. خدمات محاسبة خبيرة، امتثال ضريبة القيمة المضافة، مراجعة، إدارة رواتب واستشارات مالية.",
     images: ["/logo.png"],
     creator: "@creativeaccounting"
   },
@@ -103,7 +103,7 @@ export default function RootLayout({ children }) {
     "@context": "https://schema.org",
     "@type": "AccountingService",
     "name": "Creative Accounting",
-    "description": "Leading accounting firm in Riyadh, Saudi Arabia providing expert bookkeeping, VAT compliance, auditing, payroll and financial advisory services.",
+    "description": "شركة محاسبة رائدة في الرياض، السعودية تقدم خدمات محاسبة خبيرة، امتثال ضريبة القيمة المضافة، مراجعة، إدارة رواتب واستشارات مالية.",
     "url": "https://creativeeaccounting.com",
     "logo": "https://creativeeaccounting.com/logo.png",
     "image": "https://creativeeaccounting.com/logo.png",
